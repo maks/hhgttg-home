@@ -1,7 +1,10 @@
 package com.manichord.hhgttg_home;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
@@ -21,6 +24,14 @@ public class MainActivity extends Activity
                 | LayoutParams.FLAG_TURN_SCREEN_ON);
         
         setContentView(R.layout.main);
+        
+        findViewById(R.id.dont_panic_text).setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent("android.settings.SETTINGS"));
+            }
+        });
         
         // System/Nav-bar off
         hideSystemBar();

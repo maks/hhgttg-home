@@ -3,17 +3,18 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/main_outline"
     >
 <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/dont_panic_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:padding="25dp"
     android:text="DON'T \nPANIC"
     android:textSize="50sp"
     android:textColor="@android:color/holo_orange_light"
     android:layout_gravity="center"
     android:textAlignment="gravity"
-    android:background="@drawable/main_outline"
     />
 </LinearLayout>
 
