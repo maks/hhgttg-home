@@ -29,17 +29,28 @@ public class MainActivity extends Activity
             
             @Override
             public void onClick(View v) {
+                // System/Nav-bar off
+                toggleSystemBar(true);
                 startActivity(new Intent("android.settings.SETTINGS"));
             }
         });
-        
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
         // System/Nav-bar off
-        hideSystemBar();
-        
+        toggleSystemBar(false);
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
-    private void hideSystemBar() {
-        // TODO Auto-generated method stub
-        
+    private void toggleSystemBar(boolean visible) {
+        Intent intent = new Intent("com.android.SYSTEMBAR");
+        intent.putExtra("EXTRA_VISIBLE", visible);
+        sendBroadcast(intent);
     }
 }
