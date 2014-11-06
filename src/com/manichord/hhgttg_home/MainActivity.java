@@ -19,18 +19,14 @@ public class MainActivity extends Activity
         // to disable the title bar of the application...
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window win = getWindow();
-        win.addFlags(LayoutParams.FLAG_FULLSCREEN
-                | LayoutParams.FLAG_DISMISS_KEYGUARD
+        win.addFlags(LayoutParams.FLAG_DISMISS_KEYGUARD
                 | LayoutParams.FLAG_TURN_SCREEN_ON);
-        
         setContentView(R.layout.main);
         
         findViewById(R.id.dont_panic_text).setOnClickListener(new OnClickListener() {
             
             @Override
             public void onClick(View v) {
-                // System/Nav-bar off
-                toggleSystemBar(true);
                 startActivity(new Intent("android.settings.SETTINGS"));
             }
         });
@@ -39,18 +35,17 @@ public class MainActivity extends Activity
     @Override
     protected void onResume() {
         super.onResume();
-        // System/Nav-bar off
-        toggleSystemBar(false);
+        findViewById(R.id.main_view).setSystemUiVisibility(
+        		View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
     
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    private void toggleSystemBar(boolean visible) {
-        Intent intent = new Intent("com.android.SYSTEMBAR");
-        intent.putExtra("EXTRA_VISIBLE", visible);
-        sendBroadcast(intent);
     }
 }
