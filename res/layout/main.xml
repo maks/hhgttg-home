@@ -11,7 +11,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="25dp"
-    android:text="DON'T \nPANIC"
+    android:text="@string/dont_panic_mesg"
     android:textSize="50sp"
     android:textColor="@android:color/holo_orange_light"
     android:layout_gravity="center"

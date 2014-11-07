@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HHGTTG</string>
+    <string name="dont_panic_mesg">DON'T \nPANIC</string>
+    
 </resources>
