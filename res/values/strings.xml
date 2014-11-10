@@ -2,5 +2,5 @@
 <resources>
     <string name="app_name">HHGTTG</string>
     <string name="dont_panic_mesg">DON\'T \nPANIC</string>
-    
+    <string name="panic_mesg">PANIC</string>
 </resources>
