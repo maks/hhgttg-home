@@ -3,4 +3,6 @@
     <string name="app_name">HHGTTG</string>
     <string name="dont_panic_mesg">DON\'T \nPANIC</string>
     <string name="panic_mesg">PANIC</string>
+    <string name="play_music">Play</string>
+    <string name="pause_music">Pause</string>
 </resources>
