@@ -27,5 +27,13 @@
     android:text="@string/panic_mesg"
     />
 
+<Button 
+    android:id="@+id/fiveghz_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|bottom"
+    android:text="@string/fiveghz_mesg"
+    />
+
 </LinearLayout>
 
