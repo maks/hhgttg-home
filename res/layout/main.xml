@@ -35,5 +35,13 @@
     android:text="@string/fiveghz_mesg"
     />
 
+<Button 
+    android:id="@+id/dimscreen_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|bottom"
+    android:text="@string/dimscreen_mesg"
+    />
+
 </LinearLayout>
 

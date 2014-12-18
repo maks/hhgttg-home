@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 
 public class MainActivity extends Activity implements OnClickListener
@@ -20,6 +21,8 @@ public class MainActivity extends Activity implements OnClickListener
     private View rebootButton;
     private View dontpanicButton;
     private View fiveghzButton;
+    private View dimScreen;
+    private boolean dimmed = false;
     
     /** Called when the activity is first created. */
     @Override
@@ -30,8 +33,16 @@ public class MainActivity extends Activity implements OnClickListener
         // to disable the title bar of the application...
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         Window win = getWindow();
-        win.addFlags(LayoutParams.FLAG_DISMISS_KEYGUARD
-                | LayoutParams.FLAG_TURN_SCREEN_ON);
+        win.addFlags(
+                // dont show lockscreen aka keyguard if not using secure keyguard
+                LayoutParams.FLAG_DISMISS_KEYGUARD
+                // turn screen on if its not on
+                | LayoutParams.FLAG_TURN_SCREEN_ON
+                //stop screen from turning off
+                | LayoutParams.FLAG_KEEP_SCREEN_ON);
+        // clear the keep screen with:
+        // getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        
         setContentView(R.layout.main);
         
         dontpanicButton = findViewById(R.id.dont_panic_text);
@@ -40,6 +51,8 @@ public class MainActivity extends Activity implements OnClickListener
         rebootButton.setOnClickListener(this);
         fiveghzButton = findViewById(R.id.fiveghz_button);
         fiveghzButton.setOnClickListener(this);
+        dimScreen = findViewById(R.id.dimscreen_button);
+        dimScreen.setOnClickListener(this);
     }
     
     @Override
@@ -69,6 +82,10 @@ public class MainActivity extends Activity implements OnClickListener
             startActivity(new Intent("android.settings.SETTINGS"));
         } else if (v == fiveghzButton) {
             setWifiFreqBand(v.getContext().getApplicationContext());
+        } else if (v == dimScreen) {
+            int dimBy = dimmed ? 100 : 0;
+            dimTheScreen(dimBy);
+            dimmed = !dimmed;
         }
     }
     
@@ -98,5 +115,15 @@ public class MainActivity extends Activity implements OnClickListener
         } catch (Exception e) {
             Log.e(LOGTAG, "", e);
         }
+    }
+    
+    /**
+     * Dim screen
+     * @param dimAmount how much to dim screen by 0 = fully dim, 100 = fully bright
+     */
+    private void dimTheScreen(int dimAmount) {
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.screenBrightness =  0.01f + dimAmount / 100.0f; //add 0.1 because 0 would turn screen fully off
+        getWindow().setAttributes(lp);
     }
 }
