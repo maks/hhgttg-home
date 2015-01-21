@@ -5,7 +5,7 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
-LOCAL_PACKAGE_NAME := hhgttg
+LOCAL_PACKAGE_NAME := hhgttg-home
 LOCAL_CERTIFICATE := platform
 
 #LOCAL_PROGUARD_FLAG_FILES := proguard.flags
