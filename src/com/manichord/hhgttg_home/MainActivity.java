@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -23,6 +25,7 @@ public class MainActivity extends Activity implements OnClickListener
     private View fiveghzButton;
     private View dimScreen;
     private boolean dimmed = false;
+    private View testMaxVol;
     
     /** Called when the activity is first created. */
     @Override
@@ -53,6 +56,8 @@ public class MainActivity extends Activity implements OnClickListener
         fiveghzButton.setOnClickListener(this);
         dimScreen = findViewById(R.id.dimscreen_button);
         dimScreen.setOnClickListener(this);
+        testMaxVol = findViewById(R.id.max_vol_test_button);
+        testMaxVol.setOnClickListener(this);
     }
     
     @Override
@@ -65,6 +70,8 @@ public class MainActivity extends Activity implements OnClickListener
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                 | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        
+        NTPTest();
     }
     
     @Override
@@ -86,6 +93,8 @@ public class MainActivity extends Activity implements OnClickListener
             int dimBy = dimmed ? 100 : 0;
             dimTheScreen(dimBy);
             dimmed = !dimmed;
+        } else if (v == testMaxVol) {
+           testSetMaxVolume(v.getContext().getApplicationContext());
         }
     }
     
@@ -125,5 +134,21 @@ public class MainActivity extends Activity implements OnClickListener
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.screenBrightness =  0.01f + dimAmount / 100.0f; //add 0.1 because 0 would turn screen fully off
         getWindow().setAttributes(lp);
+    }
+    
+    private void testSetMaxVolume(Context cxt) {
+        AudioManager audioManager = (AudioManager) cxt.getSystemService(Context.AUDIO_SERVICE);
+        int maxVol = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        Log.d(LOGTAG, "setting MAX volume to:"+maxVol);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVol, 0);
+        Log.d(LOGTAG, "volume now:"+audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
+    }
+    
+    private void NTPTest() {
+        final Resources res = this.getResources();
+        final int id = Resources.getSystem().getIdentifier(
+                           "config_ntpServer", "string","android");
+        final String defaultServer = res.getString(id);
+        Log.i(LOGTAG, "USING NTP:"+defaultServer);
     }
 }

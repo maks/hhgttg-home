@@ -5,4 +5,5 @@
     <string name="panic_mesg">PANIC</string>
     <string name="fiveghz_mesg">5 GHz</string>
     <string name="dimscreen_mesg">Dim Toggle</string>
+    <string name="max_vol_test_mesg">Volume Test</string>
 </resources>
